@@ -1,0 +1,34 @@
+{
+  "name": "eventifly",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "react-dev": "webpack -wd",
+    "server-dev": "nodemon server/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Eventifly/eventifly.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Eventifly/eventifly/issues"
+  },
+  "homepage": "https://github.com/Eventifly/eventifly#readme",
+  "dependencies": {
+    "express": "^4.16.2",
+    "mongodb": "^2.2.33",
+    "react": "^16.0.0",
+    "react-dom": "^16.0.0"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-react": "^6.24.1",
+    "babel-preset-stage-2": "^6.24.1",
+    "nodemon": "^1.12.1"
+  }
+}
