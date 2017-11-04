@@ -6,9 +6,12 @@ var port = 3000;
 var app = express();
 // var connection = require('http').createServer(app);
 
-/*app.get('/',function(req,res){
+app.get('/events',function(req,res){
+  console.log("Server side req: "+req)
   res.send("Server is up");
-});*/
+
+
+});
 
 
 
