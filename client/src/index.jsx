@@ -23,13 +23,21 @@ class App extends React.Component{
 
     $.ajax({
       type: "GET",
-      url: "http://127.0.0.1:3000/events",
-      data: {location: this.state.location},
-      success: function(){
-        console.log("Successful Get")
+      url: "/events",
+      data: {location: location},
+      success: function(data){
+        console.log("Successful Get", data)
+      },
+      error: function(err){
+        console.log(err)
       }
 
     })
+   
+    
+    // $.get('/events', {location: location}, (data, status)=>{
+    //   console.log(data, status)
+    // });
   }
 
 
