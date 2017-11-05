@@ -4,8 +4,7 @@ import TitleBar from './components/TitleBar.jsx';
 import Search from './components/Search.jsx';
 import EventsList from './components/EventsList.jsx';
 import $ from 'jquery';
-
-
+import {getEvents} from './../../helpers/eventbrite.js';
 
 class App extends React.Component{
   constructor(props) {
@@ -21,7 +20,7 @@ class App extends React.Component{
     e.preventDefault();
     console.log("came to location", location);
 
-    $.ajax({
+    /*$.ajax({
       type: "GET",
       url: "/events",
       data: {location: location},
@@ -32,9 +31,22 @@ class App extends React.Component{
         console.log(err)
       }
 
-    })
-   
-    
+    })*/
+   /* $.ajax({
+    method: "GET",
+    url: "http://www.eventbriteapi.com/v3/events/search/?token={RB2FFZRZVYOQYXFFUESO}",
+    success: function(data){
+      console.log("Sucess");
+      console.log(data);
+    },
+    error: function(err){
+      console.log("Failed" , err);
+    }
+
+    })*/
+
+    getEvents();
+
     // $.get('/events', {location: location}, (data, status)=>{
     //   console.log(data, status)
     // });
