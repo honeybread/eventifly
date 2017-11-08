@@ -11,7 +11,9 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 
 app.get('/events',function(req,res){
-  res.send(req.query);
+  console.log("came to /events get")
+  console.log("on Server side: Events", req.query);
+  res.sendStatus(200);
 
 
 });

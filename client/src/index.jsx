@@ -10,7 +10,8 @@ class App extends React.Component{
   constructor(props) {
     super(props);
     this.state = {
-      location: ''
+      location: '',
+      events: ''
     }
 
     this.onSearch = this.onSearch.bind(this);
@@ -19,37 +20,25 @@ class App extends React.Component{
   onSearch(e, location){
     e.preventDefault();
     console.log("came to location", location);
+    getEvents(this);
 
-    /*$.ajax({
-      type: "GET",
-      url: "/events",
-      data: {location: location},
-      success: function(data){
-        console.log("Successful Get", data)
+    // console.log("hello", this.state.events);
+  }
+
+  componentDidUpdate() {
+    console.log("updated the component");
+    console.log(this.state.events);
+    $.ajax({
+      method:'GET',
+      url:'/events',
+      success: function(data) {
+        console.log(data);
+        console.log("Events data sent from client");
       },
-      error: function(err){
-        console.log(err)
+      error: function(err) {
+        console.log(err);
       }
-
-    })*/
-   /* $.ajax({
-    method: "GET",
-    url: "http://www.eventbriteapi.com/v3/events/search/?token={RB2FFZRZVYOQYXFFUESO}",
-    success: function(data){
-      console.log("Sucess");
-      console.log(data);
-    },
-    error: function(err){
-      console.log("Failed" , err);
-    }
-
-    })*/
-
-    getEvents();
-
-    // $.get('/events', {location: location}, (data, status)=>{
-    //   console.log(data, status)
-    // });
+    })
   }
 
 

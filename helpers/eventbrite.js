@@ -1,14 +1,16 @@
 //var request = require('request');
 import $ from 'jquery';
 
-var myToken ='Please fill in your token';
-export function getEvents(){
+var myToken ='KB7MOMI3N42X6PLFKTQJ';
+var successData = undefined;
+export function getEvents(obj){
   $.ajax({
     method: "GET",
-    url: "http://www.eventbriteapi.com/v3/events/search/?token={" + myToken +"}",
+    url: "https://www.eventbriteapi.com/v3/events/search/?token=" + myToken,
     success: function(data){
       console.log("Sucess");
-      console.log(data);
+      //successData = data;
+      obj.setState({'events': data});
     },
     error: function(err){
       console.log("Failed" , err);
@@ -17,4 +19,6 @@ export function getEvents(){
   })
 }
 
+window.events = successData;
 //window.events = getEvents;
+
