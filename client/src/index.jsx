@@ -11,7 +11,7 @@ class App extends React.Component{
     super(props);
     this.state = {
       location: '',
-      events: ''
+      events: []
     }
 
    // this.onSearch = this.onSearch.bind(this);
@@ -21,34 +21,18 @@ class App extends React.Component{
     e.preventDefault();
     console.log("came to location", location);
     //this.setState({location: location});
-    
+
     getEvents(this, location);
 
-  
-  }
 
-  componentDidUpdate() {
-    console.log("updated the component");
-    console.log(this.state.events);
-    // $.ajax({
-    //   method:'GET',
-    //   url:'/events',
-    //   success: function(data) {
-    //     console.log(data);
-    //     console.log("Events data sent from client");
-    //   },
-    //   error: function(err) {
-    //     console.log(err);
-    //   }
-    // })
   }
-
 
   render(){
     return(
       <div>
         <TitleBar/>
         <Search onSearch={this.onSearch.bind(this)}/>
+        <EventsList events={this.state.events}/>
       </div>
       );
   }
