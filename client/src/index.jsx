@@ -14,31 +14,33 @@ class App extends React.Component{
       events: ''
     }
 
-    this.onSearch = this.onSearch.bind(this);
+   // this.onSearch = this.onSearch.bind(this);
   }
 
   onSearch(e, location){
     e.preventDefault();
     console.log("came to location", location);
-    getEvents(this);
+    //this.setState({location: location});
+    
+    getEvents(this, location);
 
-    // console.log("hello", this.state.events);
+  
   }
 
   componentDidUpdate() {
     console.log("updated the component");
     console.log(this.state.events);
-    $.ajax({
-      method:'GET',
-      url:'/events',
-      success: function(data) {
-        console.log(data);
-        console.log("Events data sent from client");
-      },
-      error: function(err) {
-        console.log(err);
-      }
-    })
+    // $.ajax({
+    //   method:'GET',
+    //   url:'/events',
+    //   success: function(data) {
+    //     console.log(data);
+    //     console.log("Events data sent from client");
+    //   },
+    //   error: function(err) {
+    //     console.log(err);
+    //   }
+    // })
   }
 
 
@@ -46,7 +48,7 @@ class App extends React.Component{
     return(
       <div>
         <TitleBar/>
-        <Search onSearch={this.onSearch}/>
+        <Search onSearch={this.onSearch.bind(this)}/>
       </div>
       );
   }
