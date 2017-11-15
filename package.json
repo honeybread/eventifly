@@ -19,10 +19,12 @@
   "homepage": "https://github.com/Eventifly/eventifly#readme",
   "dependencies": {
     "body-parser": "^1.18.2",
+    "bootstrap": "^3.3.7",
     "express": "^4.16.2",
     "jquery": "^3.2.1",
     "mongodb": "^2.2.33",
     "react": "^16.1.1",
+    "react-bootstrap": "^0.31.5",
     "react-dom": "^16.1.1",
     "reactstrap": "^5.0.0-alpha.3",
     "request": "^2.83.0"
