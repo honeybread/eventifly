@@ -5,6 +5,7 @@ import Search from './components/Search.jsx';
 import EventsList from './components/EventsList.jsx';
 import $ from 'jquery';
 import {getEvents} from './../../helpers/eventbrite.js';
+import MapContainer from './components/Googlemaps.jsx';
 
 class App extends React.Component{
   constructor(props) {
@@ -12,6 +13,10 @@ class App extends React.Component{
     this.state = {
       location: '',
       events: []
+    }
+    this.style = {
+      width: '20%',
+      height: '20%'
     }
 
    // this.onSearch = this.onSearch.bind(this);
@@ -23,8 +28,6 @@ class App extends React.Component{
     //this.setState({location: location});
 
     getEvents(this, location);
-
-
   }
 
   render(){
@@ -33,8 +36,9 @@ class App extends React.Component{
         <TitleBar/>
         <Search onSearch={this.onSearch.bind(this)}/>
         <EventsList events={this.state.events}/>
+        <MapContainer  />
       </div>
-      );
+    );
   }
 }
 
