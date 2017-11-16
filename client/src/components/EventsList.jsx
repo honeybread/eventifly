@@ -9,6 +9,8 @@ const EventsList = props => {
         <EventItem
           key={event.id}
           event={event}
+          lat={event.venue.latitude}
+          lng={event.venue.longitude}
         />
     );
   });

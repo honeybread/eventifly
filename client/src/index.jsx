@@ -12,12 +12,10 @@ class App extends React.Component{
     super(props);
     this.state = {
       location: '',
-      events: []
+      events: [],
+      location:[]
     }
-    this.style = {
-      width: '20%',
-      height: '20%'
-    }
+
 
    // this.onSearch = this.onSearch.bind(this);
   }
@@ -36,7 +34,7 @@ class App extends React.Component{
         <TitleBar/>
         <Search onSearch={this.onSearch.bind(this)}/>
         <EventsList events={this.state.events}/>
-        <MapContainer  />
+        <MapContainer location={this.state.location} />
       </div>
     );
   }

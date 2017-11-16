@@ -6,12 +6,13 @@ var successData = undefined;
 export function getEvents(obj, location){
   $.ajax({
     method: "GET",
-    url: "https://www.eventbriteapi.com/v3/events/search/?location.address=" +  JSON.stringify(location) + "&token=" + myToken,
+    url: "https://www.eventbriteapi.com/v3/events/search/?location.address=" +  JSON.stringify(location) + "&token=" + myToken + "&expand=venue",
     success: function(data){
       console.log("Success", data);
       //successData = data;
       console.log("state set location", obj.state.location);
-      obj.setState({events: data.events});
+      obj.setState({events: data.events} );
+
     },
     error: function(err){
       console.log("Failed" , err);
