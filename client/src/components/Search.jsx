@@ -6,7 +6,7 @@ export default class Search extends React.Component{
   constructor(props) {
     super(props);
     this.state = {
-      input_location: ''
+      input_location: this.props.location
     }
     this.handleInput = this.handleInput.bind(this);
   }
@@ -20,7 +20,7 @@ export default class Search extends React.Component{
       <div>
         <form>
           <label>Where:
-            <input type="text" name="name" onChange = {this.handleInput}/>
+            <input value={this.state.input_location} type="text" name="name" onChange = {this.handleInput}/>
           </label>
           <button name="Submit" onClick={(e) => {this.props.onSearch(e, this.state.input_location)}}> Search </button>
         </form>
