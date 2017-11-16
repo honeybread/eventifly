@@ -1,7 +1,7 @@
-//var request = require('request');
 import $ from 'jquery';
+import auth from './../config.js'
 
-var myToken ='KB7MOMI3N42X6PLFKTQJ';
+var myToken = auth.eventbrite.token;
 var successData = undefined;
 export function getEvents(obj, location){
   $.ajax({
@@ -9,7 +9,7 @@ export function getEvents(obj, location){
     url: "https://www.eventbriteapi.com/v3/events/search/?location.address=" +  JSON.stringify(location) + "&token=" + myToken,
     success: function(data){
       console.log("Success", data);
-      //successData = data;
+ 
       console.log("state set location", obj.state.location);
       obj.setState({events: data.events});
     },
@@ -21,4 +21,4 @@ export function getEvents(obj, location){
 }
 
 window.events = successData;
-//window.events = getEvents;
+

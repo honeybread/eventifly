@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/Eventifly/eventifly#readme",
   "dependencies": {
+    "axios": "^0.17.1",
     "body-parser": "^1.18.2",
     "express": "^4.16.2",
     "jquery": "^3.2.1",
@@ -25,7 +26,10 @@
     "react": "^16.1.1",
     "react-dom": "^16.1.1",
     "reactstrap": "^5.0.0-alpha.3",
-    "request": "^2.83.0"
+    "request": "^2.83.0",
+    "request-promise": "^4.2.2",
+    "yelp-fusion": "^1.0.4",
+    "yelpv3": "^1.2.1"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",

@@ -5,6 +5,8 @@ import Search from './components/Search.jsx';
 import EventsList from './components/EventsList.jsx';
 import $ from 'jquery';
 import {getEvents} from './../../helpers/eventbrite.js';
+import {getYelpEvents} from './../../helpers/yelp.js';
+
 
 class App extends React.Component{
   constructor(props) {
@@ -23,6 +25,7 @@ class App extends React.Component{
     //this.setState({location: location});
 
     getEvents(this, location);
+    getYelpEvents(this, location);
 
 
   }
