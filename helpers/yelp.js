@@ -1,14 +1,13 @@
-
 import axios from 'axios';
 
-export function getYelpEvents (obj, location) {
+export function getYelpEvents (location) {
     axios.get('/events/yelp', {params:{location: location}})
-    .then(function(response) {
-        console.log("successfully called yelp")
-        console.log("yelp data", response);
-    })
-    .catch(function(error){
-        console.log(error);
-    });
+        .then(function(response) {
+            console.log("successfully called yelp")
+            console.log("yelp data", response);
+        })
+        .catch(function(error){
+            console.log(error);
+        });
 }
 

@@ -4,7 +4,7 @@ import TitleBar from './components/TitleBar.jsx';
 import Search from './components/Search.jsx';
 import EventsList from './components/EventsList.jsx';
 import $ from 'jquery';
-import {getEvents} from './../../helpers/eventbrite.js';
+import {getEventbriteEvents} from './../../helpers/eventbrite.js';
 import {getYelpEvents} from './../../helpers/yelp.js';
 
 
@@ -24,8 +24,8 @@ class App extends React.Component{
     console.log("came to location", location);
     //this.setState({location: location});
 
-    getEvents(this, location);
-    getYelpEvents(this, location);
+    getEventbriteEvents(location);
+    getYelpEvents(location);
 
 
   }
