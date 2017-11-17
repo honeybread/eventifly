@@ -22,11 +22,9 @@ class App extends React.Component{
   onSearch(e, location){
     e.preventDefault();
     console.log("came to location", location);
-    //this.setState({location: location});
+
     getYelpEvents(location);
     getEventbriteEvents(location);
-    
-
 
   }
 

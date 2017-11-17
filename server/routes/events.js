@@ -7,10 +7,7 @@ var eventsDB = require('./../../database/index.js');
 
 
 router.get('/',function(req,res){
-    console.log("came to /events get")
-    console.log("on Server side: Events", req.query);
     res.sendStatus(200);
-  
   });
   
   
@@ -39,23 +36,27 @@ yelp.accessToken(clientId, clientSecret)
                 var lat = events[i].latitude === null? "": [events[i].latitude.toString().split('.')[0], events[i].latitude.toString().split('.')[1].slice(0, 4)].join('.');
                 var long = events[i].longitude === null? "": [events[i].longitude.toString().split('.')[0], events[i].longitude.toString().split('.')[1].slice(0, 4)].join('.');
 
-                var newEvent = new eventsDB.eventsModel({
-                    startDate: startDate,
-                    startTime: startTime,
-                    endDate: endDate,
-                    endTime: endTime,
-                    lat: lat,
-                    long: long,
-                    details: {yelp: {name: events[i].name, 
-                        description: events[i].description,
-                        url: events[i].event_site_url
-                    }}
-                })
-
-                newEvent.save(function(error, newEvent){
-                    if (error) console.error(error);
-                    console.log("New Event of Yelp saved!")
-                })
+                
+                eventsDB.eventsModel.findOneAndUpdate(
+                    {startDate: startDate, startTime: startTime, lat: lat, long: long},
+                    {$set:{
+                        startDate: startDate,
+                        startTime: startTime,
+                        endDate: endDate,
+                        endTime: endTime,
+                        lat: lat,
+                        long: long,
+                        details: {yelp: {name: events[i].name, 
+                            description: events[i].description,
+                            url: events[i].event_site_url
+                        }}
+                    }},
+                    {safe: true, upsert: true, new: true},
+                    function(error, model) {
+                        if (error) console.error(error);
+                        console.log("New Event of Yelp saved!")
+                    }
+                )       
             }
             res.send(response.data);
             })
@@ -67,7 +68,9 @@ yelp.accessToken(clientId, clientSecret)
     .catch(function(error){
         console.error(error);
     });
-});
+    });
+
+
 
 router.get('/eventbrite', function(req, res){
     var location = req.query.location;
@@ -86,24 +89,29 @@ router.get('/eventbrite', function(req, res){
                 var endTime = events[i].end.local === null? "": events[i].end.local.split("T")[1].slice(0, -3);
                 var lat = events[i].venue.latitude === null? "": [events[i].venue.latitude.split('.')[0], events[i].venue.latitude.split('.')[1].slice(0, 4)].join('.');
                 var long = events[i].venue.longitude === null? "": [events[i].venue.longitude.split('.')[0], events[i].venue.longitude.split('.')[1].slice(0, 4)].join('.');
-             
-                var newEvent = new eventsDB.eventsModel({
-                    startDate: startDate,
-                    startTime: startTime,
-                    endDate: endDate,
-                    endTime: endTime,
-                    lat: lat,
-                    long: long,
-                    details: {eventbrite: {name: events[i].name, 
-                        description: events[i].description,
-                        url: events[i].event_site_url
-                    }}
-                })
+                
 
-                newEvent.save(function(error, newEvent){
-                    if (error) console.error(error);
-                    console.log("New Event of Eventbrite saved!")
-                })
+                eventsDB.eventsModel.findOneAndUpdate(
+                    {startDate: startDate, startTime: startTime, lat: lat, long: long},
+                    {$set:{
+                        startDate: startDate,
+                        startTime: startTime,
+                        endDate: endDate,
+                        endTime: endTime,
+                        lat: lat,
+                        long: long,
+                        details: {eventbrite: {name: events[i].name.text, 
+                            description: events[i].description.text,
+                            url: events[i].url
+                        }}
+                    }},
+                    {safe: true, upsert: true, new: true},
+                    function(error, model) {
+                        if (error) console.error(error);
+                        console.log("New Event of Eventbrite saved!")
+                    }
+                )  
+
             }
             res.send(response.data);
         })
