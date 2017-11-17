@@ -7,21 +7,35 @@ var eventsDB = require('./../../database/index.js');
 
 
 router.get('/',function(req,res){
-    res.sendStatus(200);
+    eventsDB.eventsModel.find(function(error, events){
+        if (error) return console.error(error);
+        res.json(events);
+    });
+    eventsDB.eventsModel.find()
   });
   
-  
-router.get('/yelp', function(req, res){
-var location = req.query.location;
+
+router.delete('/', function(req, res){
+    console.log("came to delete");
+    eventsDB.eventsModel.remove(function(error, removed){
+        if (error) console.error(error);
+        res.sendStatus(200);
+    })
+    
+});
+
+router.post('/yelp', function(req, res){
+var location = req.body.params.location;
 var clientId = config.yelp.clientId;
 var clientSecret = config.yelp.clientSecret;
 
 yelp.accessToken(clientId, clientSecret)
-    .then(function(response){
-        console.log(response);
+    .then(function(response){    
         var access_token = response.jsonBody.access_token;
         var url = 'https://api.yelp.com/v3/events?location='.concat(location)
-        url = url.concat('&limit=50')
+        url = url.concat('&limit=50');
+        var start_date = Math.round((new Date()).getTime() / 1000);
+        url = url.concat('&start_date=' + start_date.toString());
         axios.get(url, 
         {headers:{Authorization: "Bearer ".concat(access_token)}})
             .then(function(response){
@@ -48,17 +62,17 @@ yelp.accessToken(clientId, clientSecret)
                         long: long,
                         details: {yelp: {name: events[i].name, 
                             description: events[i].description,
-                            url: events[i].event_site_url
+                            eventUrl: events[i].event_site_url,
+                            logoUrl: events[i].image_url
                         }}
                     }},
                     {safe: true, upsert: true, new: true},
                     function(error, model) {
                         if (error) console.error(error);
-                        console.log("New Event of Yelp saved!")
                     }
                 )       
             }
-            res.send(response.data);
+            res.sendStatus(200);
             })
             .catch(function(error){
             console.error(error);
@@ -72,8 +86,8 @@ yelp.accessToken(clientId, clientSecret)
 
 
 
-router.get('/eventbrite', function(req, res){
-    var location = req.query.location;
+router.post('/eventbrite', function(req, res){
+    var location = req.body.params.location;
     var myToken = config.eventbrite.token;
     var successData = undefined;
     var url = "https://www.eventbriteapi.com/v3/events/search/?location.address=" +  JSON.stringify(location) + "&token=" + myToken + "&expand=venue";    
@@ -102,18 +116,18 @@ router.get('/eventbrite', function(req, res){
                         long: long,
                         details: {eventbrite: {name: events[i].name.text, 
                             description: events[i].description.text,
-                            url: events[i].url
+                            eventUrl: events[i].url,
+                            logoUrl: events[i].logo.url
                         }}
                     }},
                     {safe: true, upsert: true, new: true},
                     function(error, model) {
                         if (error) console.error(error);
-                        console.log("New Event of Eventbrite saved!")
                     }
                 )  
 
             }
-            res.send(response.data);
+            res.sendStatus(200);
         })
         .catch(function(error) {
             console.error(error);

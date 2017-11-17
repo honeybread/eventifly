@@ -1,10 +1,11 @@
 import axios from 'axios';
+import {getEventsFromDB} from './updateEvents.js';
 
-export function getYelpEvents (location) {
-    axios.get('/events/yelp', {params:{location: location}})
+export function getYelpEvents (location, obj) {
+    axios.post('/events/yelp', {params:{location: location}})
         .then(function(response) {
-            console.log("successfully called yelp")
-            console.log("yelp data", response);
+            console.log("got yelp events");
+            getEventsFromDB(obj);
         })
         .catch(function(error){
             console.log(error);

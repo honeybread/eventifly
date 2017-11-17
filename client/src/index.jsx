@@ -3,9 +3,9 @@ import ReactDOM from 'react-dom';
 import TitleBar from './components/TitleBar.jsx';
 import Search from './components/Search.jsx';
 import EventsList from './components/EventsList.jsx';
-import $ from 'jquery';
-import {getEventbriteEvents} from './../../helpers/eventbrite.js';
-import {getYelpEvents} from './../../helpers/yelp.js';
+import {deleteAllDocumentsAndSearch} from './../../helpers/deleteDocuments.js';
+
+import axios from 'axios';
 
 
 class App extends React.Component{
@@ -14,25 +14,21 @@ class App extends React.Component{
     this.state = {
       location: '',
       events: []
-    }
+    };
 
-   // this.onSearch = this.onSearch.bind(this);
+  this.onSearch = this.onSearch.bind(this);
   }
 
   onSearch(e, location){
     e.preventDefault();
-    console.log("came to location", location);
-
-    getYelpEvents(location);
-    getEventbriteEvents(location);
-
+    deleteAllDocumentsAndSearch(location, this);
   }
 
   render(){
     return(
       <div>
         <TitleBar/>
-        <Search onSearch={this.onSearch.bind(this)}/>
+        <Search onSearch={this.onSearch}/>
         <EventsList events={this.state.events}/>
       </div>
       );
