@@ -23,9 +23,9 @@ class App extends React.Component{
     e.preventDefault();
     console.log("came to location", location);
     //this.setState({location: location});
-
-    getEventbriteEvents(location);
     getYelpEvents(location);
+    getEventbriteEvents(location);
+    
 
 
   }

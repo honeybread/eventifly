@@ -28,23 +28,24 @@ yelp.accessToken(clientId, clientSecret)
         axios.get(url, 
         {headers:{Authorization: "Bearer ".concat(access_token)}})
             .then(function(response){
-            // console.log("sucess yelp", response.data);
 
             var events = response.data.events;
-            console.log("Events from Yelp", events);
             for(var i = 0; i < events.length; i++) {
                 
                 var startDate = events[i].time_start === null? "": events[i].time_start.split(" ")[0];
                 var startTime = events[i].time_start === null? "": events[i].time_start.split(" ")[1];
                 var endDate = events[i].time_end === null? "": events[i].time_end.split(" ")[0];
                 var endTime = events[i].time_end === null? "": events[i].time_end.split(" ")[1];
+                var lat = events[i].latitude === null? "": [events[i].latitude.toString().split('.')[0], events[i].latitude.toString().split('.')[1].slice(0, 4)].join('.');
+                var long = events[i].longitude === null? "": [events[i].longitude.toString().split('.')[0], events[i].longitude.toString().split('.')[1].slice(0, 4)].join('.');
+
                 var newEvent = new eventsDB.eventsModel({
                     startDate: startDate,
                     startTime: startTime,
                     endDate: endDate,
                     endTime: endTime,
-                    lat: events[i].latitude,
-                    long: events[i].longitude,
+                    lat: lat,
+                    long: long,
                     details: {yelp: {name: events[i].name, 
                         description: events[i].description,
                         url: events[i].event_site_url
@@ -75,22 +76,24 @@ router.get('/eventbrite', function(req, res){
     var url = "https://www.eventbriteapi.com/v3/events/search/?location.address=" +  JSON.stringify(location) + "&token=" + myToken + "&expand=venue";    
     axios.get(url)
         .then(function(response) {
-            // console.log("success eventbrite", response.data);
+
             var events = response.data.events;
-            console.log("Events from Eventbrite", events);
             for(var i = 0; i < events.length; i++) {
                 
                 var startDate = events[i].start.local === null? "": events[i].start.local.split("T")[0];
-                var startTime = events[i].start.local === null? "": events[i].start.local.split("T")[1];
+                var startTime = events[i].start.local === null? "": events[i].start.local.split("T")[1].slice(0, -3);;
                 var endDate = events[i].end.local === null? "": events[i].end.local.split("T")[0];
-                var endTime = events[i].end.local === null? "": events[i].end.local.split("T")[1];
+                var endTime = events[i].end.local === null? "": events[i].end.local.split("T")[1].slice(0, -3);
+                var lat = events[i].venue.latitude === null? "": [events[i].venue.latitude.split('.')[0], events[i].venue.latitude.split('.')[1].slice(0, 4)].join('.');
+                var long = events[i].venue.longitude === null? "": [events[i].venue.longitude.split('.')[0], events[i].venue.longitude.split('.')[1].slice(0, 4)].join('.');
+             
                 var newEvent = new eventsDB.eventsModel({
                     startDate: startDate,
                     startTime: startTime,
                     endDate: endDate,
                     endTime: endTime,
-                    lat: events[i].venue.latitude,
-                    long: events[i].venue.longitude,
+                    lat: lat,
+                    long: long,
                     details: {eventbrite: {name: events[i].name, 
                         description: events[i].description,
                         url: events[i].event_site_url
