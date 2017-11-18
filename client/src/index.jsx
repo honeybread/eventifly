@@ -26,19 +26,21 @@ class App extends React.Component{
   }
 
   onSearch(e, location, latitude, longitude){
+    var that = this;
     if (e) e.preventDefault();
     if (location.toLowerCase() === 'current location' && navigator.geolocation){
       getLocation(navigator.geolocation, function(err, data) {
         if (err) console.error(err);
         console.log(data);
-        deleteAllDocumentsAndSearch(undefined, data.coords.latitude, data.coords.longitude, this);
-      }
-    } else{
+        deleteAllDocumentsAndSearch(undefined, data.coords.latitude.toString(), data.coords.longitude.toString(), that);
+      });
+    }
+      else{
         deleteAllDocumentsAndSearch(location, latitude, longitude, this);
      }
- 
+
   }
-  
+
   componentDidMount(){
     this.onSearch(undefined, this.state.location, undefined, undefined);
   }
