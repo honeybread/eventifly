@@ -3,3 +3,4 @@ client/dist/bundle.js
 sample_data
 package-lock.json
 config.js
+npm-debug.log

@@ -1,12 +1,15 @@
+
 var express = require('express');
 var router = express.Router();
 var axios = require('axios');
 var config = require('./../../config.js');
 var yelp = require('yelp-fusion');
 var eventsDB = require('./../../database/index.js');
+var $ = require('jquery');
 
 
 router.get('/',function(req,res){
+    
     eventsDB.eventsModel.find(function(error, events){
         if (error) return console.error(error);
         res.json(events);
@@ -27,6 +30,7 @@ router.post('/yelp', function(req, res){
     var location = req.body.params.location;
     var latitude = req.body.params.latitude;
     var longitude = req.body.params.longitude;
+    
 
     var clientId = config.yelp.clientId;
     var clientSecret = config.yelp.clientSecret;
@@ -37,21 +41,27 @@ router.post('/yelp', function(req, res){
 
             if (location) {
                 var url = 'https://api.yelp.com/v3/events?location='.concat(location);
+                var start_date = Math.round((new Date()).getTime() / 1000);
+                url = url.concat('&start_date=' + start_date.toString());
+
             } else {
                 var url = 'https://api.yelp.com/v3/events?latitude='.concat(latitude);
-                url.concat('&longitude=' + longitude);
+                url = url.concat('&longitude=' + longitude);
             }
 
             url = url.concat('&limit=50');
-
-            var start_date = Math.round((new Date()).getTime() / 1000);
-            url = url.concat('&start_date=' + start_date.toString());
+            
             axios.get(url, 
             {headers:{Authorization: "Bearer ".concat(access_token)}})
                 .then(function(response){
 
                 var events = response.data.events;
                 for(var i = 0; i < events.length; i++) {
+                    var today = new Date();
+                    var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+                    var time = today.getHours() + ":" + today.getMinutes();
+                    var currentDateTime = date+' '+time;
+                    
                     
                     var startDate = events[i].time_start === null? "": events[i].time_start.split(" ")[0];
                     var startTime = events[i].time_start === null? "": events[i].time_start.split(" ")[1];
@@ -64,6 +74,10 @@ router.post('/yelp', function(req, res){
                     var description = events[i].description? events[i].description: "";
                     var eventUrl = events[i].event_site_url? events[i].event_site_url: "";
                     var logoUrl = events[i].image_url? events[i].image_url: "";
+
+                    if ((startDate + " " + startTime) < currentDateTime) {
+                        continue;
+                    }
                     
                     eventsDB.eventsModel.findOneAndUpdate(
                         {startDate: startDate, startTime: startTime, lat: lat, long: long},
@@ -116,12 +130,18 @@ router.post('/eventbrite', function(req, res){
     }
     url = url + "&token=" + myToken + "&expand=venue";
     
+    
     axios.get(url)
         .then(function(response) {
 
             var events = response.data.events;
             for(var i = 0; i < events.length; i++) {
                 
+                var today = new Date();
+                var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+                var time = today.getHours() + ":" + today.getMinutes();
+                var currentDateTime = date+' '+time;
+
                 var startDate = events[i].start.local === null? "": events[i].start.local.split("T")[0];
                 var startTime = events[i].start.local === null? "": events[i].start.local.split("T")[1].slice(0, -3);;
                 var endDate = events[i].end.local === null? "": events[i].end.local.split("T")[0];
@@ -133,6 +153,11 @@ router.post('/eventbrite', function(req, res){
                 var description = events[i].description? events[i].description.text: "";
                 var eventUrl = events[i].url? events[i].url: "";
                 var logoUrl = events[i].logo? events[i].logo.url: "";
+
+                if ((startDate + " " + startTime) < currentDateTime) {
+                    continue;
+                }
+
 
                 eventsDB.eventsModel.findOneAndUpdate(
                     {startDate: startDate, startTime: startTime, lat: lat, long: long},
