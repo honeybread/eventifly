@@ -43,12 +43,12 @@
     "react": "^16.1.1",
     "react-bootstrap": "^0.31.5",
     "react-dom": "^16.1.1",
-    "reactstrap": "^5.0.0-alpha.3",
+    "reactstrap": "^5.0.0-alpha.4",
     "request": "^2.83.0",
     "request-promise": "^4.2.2",
+    "webpack": "^3.8.1",
     "yelp-fusion": "^1.0.4",
-    "yelpv3": "^1.2.1",
-    "webpack": "^3.8.1"
+    "yelpv3": "^1.2.1"
   },
   "devDependencies": {
     "nodemon": "^1.12.1"
