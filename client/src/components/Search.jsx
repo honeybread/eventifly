@@ -15,6 +15,7 @@ export default class Search extends React.Component{
     this.setState({'input_location':e.target.value});
   }
 
+
   render(){
     return (
       <div>
