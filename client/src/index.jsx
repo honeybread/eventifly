@@ -7,13 +7,14 @@ import $ from 'jquery';
 import {getEvents} from './../../helpers/eventbrite.js';
 import MapContainer from './components/Googlemaps.jsx';
 
+
+
 class App extends React.Component{
   constructor(props) {
     super(props);
     this.state = {
       location: '',
-      events: [],
-      location:[]
+      events: []
     }
 
 
@@ -29,12 +30,14 @@ class App extends React.Component{
   }
 
   render(){
+    // console.log("WHAT IS THIS", this, this.state.events.venue)
     return(
+
       <div>
         <TitleBar/>
         <Search onSearch={this.onSearch.bind(this)}/>
         <EventsList events={this.state.events}/>
-        <MapContainer location={this.state.location} />
+
       </div>
     );
   }

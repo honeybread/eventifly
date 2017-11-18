@@ -10,8 +10,8 @@ export function getEvents(obj, location){
     success: function(data){
       console.log("Success", data);
       //successData = data;
-      console.log("state set location", obj.state.location);
-      obj.setState({events: data.events} );
+      console.log("state set location", data.events);
+      obj.setState({events: data.events});
 
     },
     error: function(err){
