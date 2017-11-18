@@ -1,4 +1,5 @@
 import React from 'react';
+<<<<<<< HEAD
 import {Panel, Media, Button, Collapse, Well} from 'react-bootstrap';
 
 class EventItem extends React.Component{
@@ -49,6 +50,24 @@ class EventItem extends React.Component{
 
   }
   
+=======
+import MapContainer from './Googlemaps.jsx';
+
+const EventItem = ({event}) => {
+  var details = event.details.eventbrite? event.details.eventbrite: event.details.yelp;
+  return (
+    <div>
+      <img height="150" width="150" src= {details.logoUrl} alt={"Event Image Not Available"}/>
+      <h1><a target="_blank" href={details.eventUrl}>{details.name}</a></h1>
+      <p>{details.description}</p>
+      <p>{event.startDate}</p>
+      <p>{event.startTime}</p>
+      <MapContainer  lat={event.lat} lng={event.long} name={details.name}/>
+    </div>
+  )
+>>>>>>> 24e5349ed67b82e66daa1182643fd3b85c13cc8d
 }
 
 export default EventItem;
+
+
