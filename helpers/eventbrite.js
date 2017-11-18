@@ -1,24 +1,14 @@
-//var request = require('request');
-import $ from 'jquery';
+import axios from 'axios';
+import {getEventsFromDB} from './updateEvents.js';
 
-var myToken ='KB7MOMI3N42X6PLFKTQJ';
-var successData = undefined;
-export function getEvents(obj, location){
-  $.ajax({
-    method: "GET",
-    url: "https://www.eventbriteapi.com/v3/events/search/?location.address=" +  JSON.stringify(location) + "&token=" + myToken,
-    success: function(data){
-      console.log("Success", data);
-      //successData = data;
-      console.log("state set location", obj.state.location);
-      obj.setState({events: data.events});
-    },
-    error: function(err){
-      console.log("Failed" , err);
-    }
-
-  })
+export function getEventbriteEvents(location, latitude, longitude, obj){
+  axios.post('/events/eventbrite', {params: {location: location, latitude: latitude, longitude: longitude}})
+    .then(function (response){
+      console.log("got eventbrite events");
+      getEventsFromDB(obj);
+    })
+    .catch(function(error){
+      console.error(error);
+    });
 }
 
-window.events = successData;
-//window.events = getEvents;

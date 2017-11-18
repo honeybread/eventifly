@@ -1,18 +1,20 @@
 import React from 'react';
+import MapContainer from './Googlemaps.jsx';
 
 const EventItem = ({event}) => {
-  const date = event.start.local.split("T")[0];
-  const time = event.start.local.split("T")[1];
-
+  var details = event.details.eventbrite? event.details.eventbrite: event.details.yelp;
   return (
     <div>
-      <img height="100" width="200" src= {event.logo.url} />
-      <h1><a href={event.url}>{event.name.text}</a></h1>
-      <p>{event.description.text}</p>
-      <h3>{date}</h3>
-      <h3>{time}</h3>
+      <img height="150" width="150" src= {details.logoUrl} alt={"Event Image Not Available"}/>
+      <h1><a target="_blank" href={details.eventUrl}>{details.name}</a></h1>
+      <p>{details.description}</p>
+      <p>{event.startDate}</p>
+      <p>{event.startTime}</p>
+      <MapContainer  lat={event.lat} lng={event.long} name={details.name}/>
     </div>
   )
 }
 
 export default EventItem;
+
+
