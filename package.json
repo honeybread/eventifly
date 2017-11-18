@@ -9,11 +9,11 @@
   },
   "scripts": {
     "client": "webpack -wd",
-    "build:prod": "webpack -p",
+    "build:prod": "webpack",
     "start": "node server/index.js",
     "server": "nodemon server/index.js",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
-    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm run build:prod"
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install && npm run build:prod"
   },
   "repository": {
     "type": "git",
