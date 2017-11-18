@@ -1,6 +1,7 @@
 var mongoose = require('mongoose');
+const keys = require('./../config/keys');
 
-mongoose.connect('mongodb://localhost/eventsDB');
+mongoose.connect(keys.mongoURI);
 
 mongoose.Promise = global.Promise;
 

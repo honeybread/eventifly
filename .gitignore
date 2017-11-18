@@ -2,5 +2,5 @@ node_modules
 client/dist/bundle.js
 sample_data
 package-lock.json
-config.js
+dev.js
 npm-debug.log
