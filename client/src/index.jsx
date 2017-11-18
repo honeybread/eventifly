@@ -12,16 +12,15 @@ class App extends React.Component{
   constructor(props) {
     super(props);
     this.state = {
-      location: '',
       events: []
     };
 
   this.onSearch = this.onSearch.bind(this);
   }
 
-  onSearch(e, location){
+  onSearch(e, location, latitude, longitude){
     e.preventDefault();
-    deleteAllDocumentsAndSearch(location, this);
+    deleteAllDocumentsAndSearch(location, latitude, longitude, this);
   }
 
   render(){
