@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom';
 import {Map, InfoWindow, Marker, GoogleApiWrapper} from 'google-maps-react';
 import EventItem from './EventItem.jsx';
 import EventsList from './EventsList.jsx';
-import Keys from './../../../config/keys';
 
 const style = {
       width: '25%',
@@ -69,6 +68,6 @@ export class MapContainer extends React.Component {
 };
 
 export default GoogleApiWrapper({
-  apiKey: (Keys.googleMaps)
+  apiKey: ("AIzaSyAU3zFD4SoxOh7YFMh_aOBdvdEDGLIwxEo")
 })(MapContainer)
 
