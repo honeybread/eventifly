@@ -4,30 +4,36 @@ import TitleBar from './components/TitleBar.jsx';
 import Search from './components/Search.jsx';
 import EventsList from './components/EventsList.jsx';
 import $ from 'jquery';
-import {getEvents} from './../../helpers/eventbrite.js';
 import MapContainer from './components/Googlemaps.jsx';
-
-
+import {deleteAllDocumentsAndSearch} from './../../helpers/deleteDocuments.js';
+import {dateAscendingSort} from './../../helpers/dateSort.js';
+import axios from 'axios';
 
 class App extends React.Component{
   constructor(props) {
     super(props);
     this.state = {
-      location: '',
-      events: []
-    }
+      events: [],
+      filteredEvents: []
+    };
 
-
-   // this.onSearch = this.onSearch.bind(this);
+    this.onSearch = this.onSearch.bind(this);
+    this.onDateSort = this.onDateSort.bind(this);
   }
 
-  onSearch(e, location){
+  onSearch(e, location, latitude, longitude){
     e.preventDefault();
-    console.log("came to location", location);
-    //this.setState({location: location});
-
-    getEvents(this, location);
+    deleteAllDocumentsAndSearch(location, latitude, longitude, this);
   }
+
+  onDateSort(e){
+    e.preventDefault();
+    this.state.events.sort( (a, b) => {
+      return dateAscendingSort(a, b);
+    });
+    this.setState({filteredEvents: this.state.events});
+  }
+
 
   render(){
     // console.log("WHAT IS THIS", this.state.events)
@@ -35,10 +41,8 @@ class App extends React.Component{
 
       <div>
         <TitleBar/>
-        <Search onSearch={this.onSearch.bind(this)}/>
-        <EventsList events={this.state.events}/>
-
-
+        <Search onSearch={this.onSearch}/>
+        <EventsList events={this.state.filteredEvents} onDateSort={this.onDateSort}/>
       </div>
     );
   }
