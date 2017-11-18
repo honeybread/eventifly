@@ -11,7 +11,7 @@ const EventItem = ({event}) => {
   return (
     <div>
       {image}
-      <h1><a href={event.url}>{event.name.text}</a></h1>
+      <h1><a target="_blank" href={event.url}>{event.name.text}</a></h1>
       <p>{event.description.text}</p>
       <h3>{date}</h3>
       <h3>{time}</h3>
