@@ -30,13 +30,14 @@ class App extends React.Component{
   }
 
   render(){
-    // console.log("WHAT IS THIS", this, this.state.events.venue)
+    // console.log("WHAT IS THIS", this.state.events)
     return(
 
       <div>
         <TitleBar/>
         <Search onSearch={this.onSearch.bind(this)}/>
         <EventsList events={this.state.events}/>
+
 
       </div>
     );

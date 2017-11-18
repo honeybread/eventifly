@@ -46,12 +46,12 @@ export class MapContainer extends React.Component {
     return (
 
       <Map google={this.props.google}
-          onClick={this.onMapClicked}
-          style={style}
-          initialCenter={{
+           onClick={this.onMapClicked}
+           style={style}
+           initialCenter={{
             lat: this.props.lat,
             lng: this.props.lng
-          }}>
+           }}>
 
         <Marker onClick={this.onMarkerClick} position={{lat:this.props.lat, lng:this.props.lng}}
                 name={this.props.name} />
