@@ -4,7 +4,6 @@ import {Map, InfoWindow, Marker, GoogleApiWrapper} from 'google-maps-react';
 import EventItem from './EventItem.jsx';
 import EventsList from './EventsList.jsx';
 
-
 const style = {
       width: '25%',
       height: '40%'

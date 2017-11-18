@@ -1,8 +1,7 @@
-
 var express = require('express');
 var router = express.Router();
 var axios = require('axios');
-var config = require('./../../config.js');
+var keys = require('./../../config/keys');
 var yelp = require('yelp-fusion');
 var eventsDB = require('./../../database/index.js');
 var $ = require('jquery');
@@ -32,8 +31,8 @@ router.post('/yelp', function(req, res){
     var longitude = req.body.params.longitude;
     
 
-    var clientId = config.yelp.clientId;
-    var clientSecret = config.yelp.clientSecret;
+    var clientId = keys.yelpClientId;
+    var clientSecret = keys.yelpClientSecret;
 
     yelp.accessToken(clientId, clientSecret)
         .then(function(response){    
@@ -119,7 +118,7 @@ router.post('/eventbrite', function(req, res){
     var latitude = req.body.params.latitude;
     var longitude = req.body.params.longitude;
     
-    var myToken = config.eventbrite.token;
+    var myToken = keys.eventbriteToken;
     var successData = undefined;
 
     if (location) {
