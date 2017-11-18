@@ -1,6 +1,8 @@
 import React from 'react';
+import MapContainer from './Googlemaps.jsx';
 
 const EventItem = ({event}) => {
+     
   var details = event.details.eventbrite? event.details.eventbrite: event.details.yelp;
   return (
     <div>
@@ -9,8 +11,12 @@ const EventItem = ({event}) => {
       <p>{details.description}</p>
       <p>{event.startDate}</p>
       <p>{event.startTime}</p>
+      <MapContainer  lat={event.lat} lng={event.long} name={details.name}/>
     </div>
   )
 }
 
 export default EventItem;
+
+// <h3>{lat}, {lng}</h3>
+

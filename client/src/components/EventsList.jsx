@@ -5,7 +5,8 @@ import DateSort from './FilterDateSort.jsx';
 
 const EventsList = props => {
   console.log(props);
-  const eventItems = props.events.map(event => {
+
+  const eventItems = props.events.map((event) => {
     return (
         <EventItem
           key={event._id}
