@@ -43,6 +43,7 @@
     "react": "^16.1.1",
     "react-bootstrap": "^0.31.5",
     "react-dom": "^16.1.1",
+    "react-google-maps": "^9.2.2",
     "reactstrap": "^5.0.0-alpha.4",
     "request": "^2.83.0",
     "request-promise": "^4.2.2",

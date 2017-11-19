@@ -17,7 +17,7 @@ class EventItem extends React.Component {
       <Panel>
         <Media onClick={() => {this.setState({open: !this.state.open})}}>
           <Media.Left>
-            <img height="150" width="150" src= {this.state.details.logoUrl} alt={"Event Image Not Available"}/>
+            <MapContainer lat={this.props.event.lat} lng={this.props.event.long} name={this.state.details.name}/>
           </Media.Left>
           <Media.Body>
             <Media.Heading><a target="_blank" href={this.state.details.eventUrl}>{this.state.details.name}</a></Media.Heading>
@@ -29,9 +29,9 @@ class EventItem extends React.Component {
               <div>
                 <Well>  {this.state.details.description}
                 
-                {/* <Panel collapsible expanded={this.state.open}>
-                    <MapContainer lat={this.props.event.lat} lng={this.props.event.long} name={this.state.details.name}/>
-                </Panel> */}
+                <Panel collapsible expanded={this.state.open}>
+                    
+                </Panel>
                 </Well>
               </div>  
               </Collapse>
