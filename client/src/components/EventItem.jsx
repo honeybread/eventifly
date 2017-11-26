@@ -25,9 +25,8 @@ class EventItem extends React.Component {
             <div>
               <Collapse in={this.state.open}>
               <div>
-                <Well>  {this.state.details.description}
-                
-                
+                <Well> 
+                   {this.state.details.description}
                 </Well>
               </div>  
               </Collapse>

@@ -8,13 +8,15 @@ import MapContainer from './Googlemaps.jsx';
 import {deleteAllDocumentsAndSearch} from './../../../helpers/deleteDocuments.js';
 import {dateAscendingSort} from './../../../helpers/dateSort.js';
 import axios from 'axios';
+import {Route, Switch} from 'react-router-dom';
+import Header from './Header.jsx';
 
 
 class Main extends React.Component{
   constructor(props) {
     super(props);
     this.state = {
-      location: 'current location',
+      location: '',
       events: [],
       filteredEvents: []
     };
@@ -22,6 +24,7 @@ class Main extends React.Component{
 
     this.onSearch = this.onSearch.bind(this);
     this.onDateSort = this.onDateSort.bind(this);
+    this.searchProps = {'location': this.state.location, 'onSearch': this.onSearch};
   }
 
   onSearch(e, location, latitude, longitude){
@@ -54,10 +57,16 @@ class Main extends React.Component{
 
   render(){
     return(
-      <div>
-        <Search location={this.state.location} onSearch={this.onSearch}/>
-        <EventsList events={this.state.filteredEvents} onDateSort={this.onDateSort}/>
-      </div>
+      <main>
+        <center>
+            <Route exact path='/' render={(props)=>(<Header/>)} />
+            <Route exact path='/' render={(props)=>(<Search location={this.state.location} onSearch={this.onSearch}/>)} />
+        </center>
+
+        <Route exact path='/events' render={(props)=>(<Header/>)} />
+        <Route exact path='/events' render={(props)=>(<Search location={this.state.location} onSearch={this.onSearch}/>)} />
+        <Route exact path='/events' render={ () => (<EventsList events={this.state.filteredEvents} onDateSort={this.onDateSort}/>) } />
+      </main>
     );
   }
 }
